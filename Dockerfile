@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
@@ -15,7 +15,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --ignore-platform-req=php
+# تعطيل composer install مؤقتاً (سنقوم بتثبيت الحزم يدوياً)
+# RUN composer install --no-dev --ignore-platform-req=php
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
