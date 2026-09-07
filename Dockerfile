@@ -21,7 +21,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-RUN touch database/database.sqlite
+RUN touch database/database.sqlite && php artisan migrate --force
 
 # توجيه Apache إلى مجلد public
 RUN a2enmod rewrite
