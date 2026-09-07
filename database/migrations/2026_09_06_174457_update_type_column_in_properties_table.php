@@ -40,7 +40,7 @@ return new class extends Migration
         SELECT
             id, title, description, type, purpose, price, price_optional,
             area, length, width, city, neighborhood, latitude, longitude,
-            COALESCE(status, 'available'), owner_name, owner_phone, images,
+            COALESCE(status, \'available\'), owner_name, owner_phone, images,
             created_at, updated_at
         FROM properties');
 
