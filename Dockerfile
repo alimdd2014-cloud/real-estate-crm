@@ -15,14 +15,18 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# تعطيل composer install مؤقتاً (سنقوم بتثبيت الحزم يدوياً)
-# RUN composer install --no-dev --ignore-platform-req=php
+RUN composer install --no-dev --ignore-platform-req=php
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
 RUN touch database/database.sqlite
+
+# توجيه Apache إلى مجلد public
+RUN a2enmod rewrite
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf
 
 EXPOSE 80
 
