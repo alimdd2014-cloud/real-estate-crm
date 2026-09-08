@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Property;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use App\Services\ImageKitService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,7 +61,7 @@ Route::get('/property/{id}', function ($id) {
 });
 
 // ========== إضافة عقار جديد (للمدير فقط) ==========
-Route::post('/properties', function (Request $request) {
+Route::post('/properties', function (Request $request, ImageKitService $imageKit) {
     if (!Auth::check()) {
         return redirect('/login');
     }
@@ -87,12 +88,19 @@ Route::post('/properties', function (Request $request) {
     if ($request->hasFile('images')) {
         foreach ($request->file('images') as $image) {
             $filename = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('storage/properties'), $filename);
             
-            $property->photos()->create([
-                'path' => 'storage/properties/' . $filename,
-                'is_primary' => false
-            ]);
+            $result = $imageKit->upload($image, $filename);
+
+            if ($result->error) {
+                return redirect('/properties')->with('error', 'فشل رفع الصورة إلى ImageKit');
+            }
+
+            if ($result->result && isset($result->result->url)) {
+                $property->photos()->create([
+                    'path' => $result->result->url,
+                    'is_primary' => false
+                ]);
+            }
         }
         // جعل أول صورة رئيسية
         if ($property->photos()->count() > 0) {
