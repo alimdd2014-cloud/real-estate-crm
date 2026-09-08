@@ -333,7 +333,7 @@
 
         @if(count($allPhotos) > 0)
             <div class="main-image" onclick="openLightbox(0)">
-                <img id="mainImage" src="/{{ $allPhotos[0] }}" alt="{{ $property->title }}">
+                <img id="mainImage" src="{{ $allPhotos[0] }}" alt="{{ $property->title }}">
             </div>
 
             <div class="thumbnails">
