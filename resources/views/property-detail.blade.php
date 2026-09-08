@@ -338,7 +338,7 @@
 
             <div class="thumbnails">
                 @foreach($photos as $index => $photo)
-                    <img src="/{{ $photo->path }}" 
+                    <img src="{{ $photo->path }}" 
                          alt="{{ $property->title }}" 
                          onclick="openLightbox({{ $index }})"
                          class="{{ $index == 0 ? 'active' : '' }}">
