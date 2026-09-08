@@ -24,6 +24,7 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN touch database/database.sqlite && chown -R www-data:www-data database && chmod 775 database && chmod 664 database/database.sqlite
 
 # إعدادات Apache والمنفذ
+RUN echo "upload_max_filesize = 50M\npost_max_size = 50M\nmemory_limit = 256M" > /usr/local/etc/php/conf.d/uploads.ini
 RUN a2enmod rewrite
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
