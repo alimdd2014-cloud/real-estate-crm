@@ -474,7 +474,7 @@
             if (lightboxImages.length === 0) return;
             lightboxIndex = index;
             const img = document.getElementById('lightbox-img');
-            img.src = '/' + lightboxImages[lightboxIndex];
+            img.src = lightboxImages[lightboxIndex];
             document.getElementById('lightbox').classList.add('active');
             document.getElementById('lightbox-counter').textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length;
             document.body.style.overflow = 'hidden';
@@ -491,7 +491,7 @@
             if (lightboxIndex < 0) lightboxIndex = lightboxImages.length - 1;
             if (lightboxIndex >= lightboxImages.length) lightboxIndex = 0;
             const img = document.getElementById('lightbox-img');
-            img.src = '/' + lightboxImages[lightboxIndex];
+            img.src = lightboxImages[lightboxIndex];
             document.getElementById('lightbox-counter').textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length;
         }
 
