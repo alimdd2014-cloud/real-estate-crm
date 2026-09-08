@@ -382,7 +382,7 @@
             <div class="property-card">
                 <div class="property-image">
                     @php $photo = $property->photos()->where('is_primary', true)->first(); @endphp
-                    @if($photo) <img src="/{{ $photo->path }}" alt="{{ $property->title }}"> @else <i class="fas fa-home"></i> @endif
+                    @if($photo) <img src="{{ $photo->path }}" alt="{{ $property->title }}"> @else <i class="fas fa-home"></i> @endif
                 </div>
                 <div class="property-body">
                     <div class="property-title">{{ $property->title }}</div>
